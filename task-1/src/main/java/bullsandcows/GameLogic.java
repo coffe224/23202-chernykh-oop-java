@@ -4,8 +4,10 @@ import java.util.InputMismatchException;
 import java.util.Objects;
 
 public class GameLogic {
-    private Checker checker;
     private static final int LENGTH_OF_NUMBER = 4;
+    private Checker checker;
+    private OutputHandler outputHandler;
+
 
     public void start() {
         NumberGenerator generator = new NumberGenerator();
@@ -14,12 +16,16 @@ public class GameLogic {
         checker = new Checker();
         checker.setAnswer(answer);
 
+        outputHandler = new OutputHandler();
+        outputHandler.printGameStart();
+
         gameLoop();
     }
 
     private void gameLoop() {
+
         InputScanner scanner = new InputScanner();
-        OutputHandler outputHandler = new OutputHandler();
+
         while (true) {
             String guess;
             try {
@@ -27,29 +33,21 @@ public class GameLogic {
             } catch (InputMismatchException e) {
                 String message = e.getMessage();
                 if (Objects.equals(message, "bad length")) {
-
+                    outputHandler.printBadLengthError();
                 } else if (Objects.equals(message, "not a number character")) {
-
-                } else if (Objects.equals(message, "duplicate number")) {
-
+                    outputHandler.printNotANumberError();
+                } else if (Objects.equals(message, "duplicate digit")) {
+                    outputHandler.printDuplicateDigitsError();
                 }
-                // print "try again"
                 continue;
             }
 
             int[] result = checker.checkGuess(guess);
 
-            outputHandler.print(result[0], result[1]);
+            outputHandler.printBullsAndCows(result[0], result[1]);
 
             if (result[0] == LENGTH_OF_NUMBER) {
                 outputHandler.printWin();
-                break;
-            }
-
-            current_attempt++;
-
-            if (current_attempt == LENGTH_OF_NUMBER) {
-                outputHandler.printLose();
                 break;
             }
         }

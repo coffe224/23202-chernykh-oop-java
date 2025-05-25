@@ -13,17 +13,17 @@ public class InputScanner {
             throw new InputMismatchException("bad length");
         }
 
-        int[] duplicate_array = new int[10];
+        int[] duplicateArray = new int[10];
         for (int i = 0; i < length; i++) {
-            if (string.charAt(i) < '0' || string.charAt(i) > '9') {
+            if (!Character.isDigit(string.charAt(i))) {
                 throw new InputMismatchException("not a number character");
             }
 
             int number = string.charAt(i) - '0';
-            if (duplicate_array[number] == 1) {
-                throw new InputMismatchException("duplicate number");
+            if (duplicateArray[number] == 1) {
+                throw new InputMismatchException("duplicate digit");
             }
-            duplicate_array[number]++;
+            duplicateArray[number]++;
         }
 
         return string;

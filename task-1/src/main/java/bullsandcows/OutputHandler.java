@@ -1,23 +1,19 @@
 package src.main.java.bullsandcows;
 
 public class OutputHandler {
-    public void print(int bulls, int cows) {
+    public void printBullsAndCows(int bulls, int cows) {
         System.out.println("Bulls: " + bulls + "; Cows: " + cows);
-    }
-
-    public void printAttempts(int attempts, int current_attempt) {
-        System.out.println("You have " + (attempts - current_attempt) + " left.");
     }
 
     public void printWin() {
         System.out.println("You win!");
     }
-    public void printLose() {
-        System.out.println("You lose :(");
-    }
 
-    public void printWelcome() {};
-    public void printTryAgainInput() {};
+    public void printGameStart() { System.out.println("BULLS AND COWS!!! Guess the number!"); }
 
-    public void printSeeYouNextTime() {};
+    public void printBadLengthError() { System.out.println("Too long!"); }
+
+    public void printNotANumberError() { System.out.println("This is not a number!"); }
+
+    public void printDuplicateDigitsError() { System.out.println("Digits should be unique!"); }
 }
