@@ -1,52 +1,54 @@
-package src.main.java.bullsandcows;
+package bullsandcows;
 
-import java.util.InputMismatchException;
-import java.util.Objects;
+import exceptions.*;
 
 public class GameLogic {
     private static final int LENGTH_OF_NUMBER = 4;
-    private Checker checker;
-    private OutputHandler outputHandler;
+    private static final int BULLS_INDEX = 0;
+    private static final int COWS_INDEX = 1;
+
+    private final Checker checker;
+    private final OutputHandler outputHandler;
+    private final NumberGenerator numberGenerator;
+    private final InputScanner inputScanner;
+
+    GameLogic() {
+        checker = new Checker();
+        numberGenerator = new NumberGenerator();
+        outputHandler = new OutputHandler();
+        inputScanner = new InputScanner();
+    }
 
 
     public void start() {
-        NumberGenerator generator = new NumberGenerator();
-        String answer = generator.generate(LENGTH_OF_NUMBER);
-
-        checker = new Checker();
+        String answer = numberGenerator.generate(LENGTH_OF_NUMBER);
         checker.setAnswer(answer);
 
-        outputHandler = new OutputHandler();
         outputHandler.printGameStart();
-
         gameLoop();
     }
 
     private void gameLoop() {
-
-        InputScanner scanner = new InputScanner();
-
         while (true) {
             String guess;
             try {
-                guess = scanner.scanNumber(LENGTH_OF_NUMBER);
-            } catch (InputMismatchException e) {
-                String message = e.getMessage();
-                if (Objects.equals(message, "bad length")) {
-                    outputHandler.printBadLengthError();
-                } else if (Objects.equals(message, "not a number character")) {
-                    outputHandler.printNotANumberError();
-                } else if (Objects.equals(message, "duplicate digit")) {
-                    outputHandler.printDuplicateDigitsError();
-                }
+                guess = inputScanner.scanNumber(LENGTH_OF_NUMBER);
+            } catch (BadLengthException e) {
+                outputHandler.printBadLengthError();
+                continue;
+            } catch (NotANumberException e) {
+                outputHandler.printNotANumberError();
+                continue;
+            } catch (DuplicateDigitException e) {
+                outputHandler.printDuplicateDigitsError();
                 continue;
             }
 
             int[] result = checker.checkGuess(guess);
 
-            outputHandler.printBullsAndCows(result[0], result[1]);
+            outputHandler.printBullsAndCows(result[BULLS_INDEX], result[COWS_INDEX]);
 
-            if (result[0] == LENGTH_OF_NUMBER) {
+            if (result[BULLS_INDEX] == LENGTH_OF_NUMBER) {
                 outputHandler.printWin();
                 break;
             }

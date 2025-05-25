@@ -1,4 +1,4 @@
-package src.main.java.bullsandcows;
+package bullsandcows;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package src.main.java.bullsandcows;
+package bullsandcows;
 
 public class Checker {
     private String answer;
@@ -8,6 +8,9 @@ public class Checker {
     }
 
     public int[] checkGuess(String guess) {
+
+
+
         int bulls = 0, cows = 0;
         for (int i = 0; i < answer.length(); i++) {
             char c = guess.charAt(i);

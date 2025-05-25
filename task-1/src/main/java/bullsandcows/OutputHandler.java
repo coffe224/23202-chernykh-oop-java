@@ -1,4 +1,4 @@
-package src.main.java.bullsandcows;
+package bullsandcows;
 
 public class OutputHandler {
     public void printBullsAndCows(int bulls, int cows) {
@@ -11,7 +11,7 @@ public class OutputHandler {
 
     public void printGameStart() { System.out.println("BULLS AND COWS!!! Guess the number!"); }
 
-    public void printBadLengthError() { System.out.println("Too long!"); }
+    public void printBadLengthError() { System.out.println("Bad length!"); }
 
     public void printNotANumberError() { System.out.println("This is not a number!"); }
 

@@ -1,4 +1,4 @@
-package src.main.java.bullsandcows;
+package bullsandcows;
 
 public class Main {
     public static void main(String[] args) {
