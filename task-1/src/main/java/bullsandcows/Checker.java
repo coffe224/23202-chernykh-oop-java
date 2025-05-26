@@ -7,7 +7,7 @@ public class Checker {
         answer = answer_arg;
     }
 
-    public int[] checkGuess(String guess) {
+    public BullsAndCows checkGuess(String guess) {
 
 
 
@@ -20,6 +20,6 @@ public class Checker {
                 cows++;
             }
         }
-        return new int[]{bulls, cows};
+        return new BullsAndCows(bulls, cows);
     }
 }

@@ -4,8 +4,6 @@ import exceptions.*;
 
 public class GameLogic {
     private static final int LENGTH_OF_NUMBER = 4;
-    private static final int BULLS_INDEX = 0;
-    private static final int COWS_INDEX = 1;
 
     private final Checker checker;
     private final OutputHandler outputHandler;
@@ -44,11 +42,11 @@ public class GameLogic {
                 continue;
             }
 
-            int[] result = checker.checkGuess(guess);
+            BullsAndCows result = checker.checkGuess(guess);
 
-            outputHandler.printBullsAndCows(result[BULLS_INDEX], result[COWS_INDEX]);
+            outputHandler.printBullsAndCows(result.getBulls(), result.getCows());
 
-            if (result[BULLS_INDEX] == LENGTH_OF_NUMBER) {
+            if (result.getBulls() == LENGTH_OF_NUMBER) {
                 outputHandler.printWin();
                 break;
             }
