@@ -46,7 +46,7 @@ public class GameLogic {
             }
 
             BullsAndCows result = checker.checkGuess(guess);
-            result.printBullsAndCows();
+            logger.info("Bulls: {} | Cows: {}", result.getBulls(), result.getCows());
 
             if (result.getBulls() == LENGTH_OF_NUMBER) {
                 logger.info("You win!");

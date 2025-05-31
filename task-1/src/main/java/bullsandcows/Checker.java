@@ -17,6 +17,11 @@ public class Checker {
                 cows++;
             }
         }
-        return new BullsAndCows(bulls, cows);
+
+        BullsAndCows bc = new BullsAndCows();
+        bc.setBulls(bulls);
+        bc.setCows(cows);
+
+        return bc;
     }
 }
