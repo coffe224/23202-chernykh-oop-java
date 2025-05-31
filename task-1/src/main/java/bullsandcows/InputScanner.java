@@ -1,13 +1,16 @@
 package bullsandcows;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import exceptions.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InputScanner {
+    private static final Logger logger = LoggerFactory.getLogger(InputScanner.class);
+
     public String scanNumber(int length) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a number: ");
+        logger.info("Enter a number:");
         String string = scanner.nextLine();
 
         if (string.length() != length) {

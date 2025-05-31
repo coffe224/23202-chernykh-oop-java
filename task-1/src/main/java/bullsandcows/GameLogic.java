@@ -1,28 +1,31 @@
 package bullsandcows;
 
-import exceptions.*;
+import exceptions.BadLengthException;
+import exceptions.DuplicateDigitException;
+import exceptions.NotANumberException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GameLogic {
     private static final int LENGTH_OF_NUMBER = 4;
+    private static final Logger logger = LoggerFactory.getLogger(GameLogic.class);
 
     private final Checker checker;
-    private final OutputHandler outputHandler;
     private final NumberGenerator numberGenerator;
     private final InputScanner inputScanner;
 
     GameLogic() {
         checker = new Checker();
         numberGenerator = new NumberGenerator();
-        outputHandler = new OutputHandler();
         inputScanner = new InputScanner();
     }
-
 
     public void start() {
         String answer = numberGenerator.generate(LENGTH_OF_NUMBER);
         checker.setAnswer(answer);
 
-        outputHandler.printGameStart();
+        logger.info("Start GAME!");
         gameLoop();
     }
 
@@ -32,22 +35,21 @@ public class GameLogic {
             try {
                 guess = inputScanner.scanNumber(LENGTH_OF_NUMBER);
             } catch (BadLengthException e) {
-                outputHandler.printBadLengthError();
+                logger.error("Bad length");
                 continue;
             } catch (NotANumberException e) {
-                outputHandler.printNotANumberError();
+                logger.error("Not a number");
                 continue;
             } catch (DuplicateDigitException e) {
-                outputHandler.printDuplicateDigitsError();
+                logger.error("Duplicate digit");
                 continue;
             }
 
             BullsAndCows result = checker.checkGuess(guess);
-
-            outputHandler.printBullsAndCows(result.getBulls(), result.getCows());
+            result.printBullsAndCows();
 
             if (result.getBulls() == LENGTH_OF_NUMBER) {
-                outputHandler.printWin();
+                logger.info("You win!");
                 break;
             }
         }
