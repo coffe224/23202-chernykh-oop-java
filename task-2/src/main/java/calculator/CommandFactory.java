@@ -1,39 +1,39 @@
 package calculator;
-
 import calculator.commands.Command;
-import calculator.commands.*;
+import calculator.exceptions.CommandFactoryException;
+import calculator.exceptions.PropertiesFileException;
 
+import calculator.exceptions.UnknownCommandClassException;
+import calculator.exceptions.UnknownCommandNameException;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class CommandFactory {
-        private final Properties properties;
+    private static final String PROPERTIES_FILE = "factory.properties";
+    private final Properties properties;
 
-    CommandFactory() {
+    public CommandFactory() {
         properties = new Properties();
-        InputStream inputStream = CommandFactory.class.getResourceAsStream("factory.properties");
+        InputStream inputStream = CommandFactory.class.getResourceAsStream(PROPERTIES_FILE);
         try {
             properties.load(inputStream);
-        } catch (IOException e) {
-            System.out.println("Can't load properties file");
+        } catch (Exception e) {
+            throw new PropertiesFileException(PROPERTIES_FILE);
         }
     }
 
-    Command createCommand(String commandName) throws Exception {
+    public Command createCommand(String commandName) throws CommandFactoryException {
         String commandClassName = properties.getProperty(commandName);
         if (commandClassName == null) {
-            System.out.println("Unknown command: " + commandName);
-            throw new Exception();
+            throw new UnknownCommandNameException(commandName);
         } else {
             try {
                 Class<?> commandClass = Class.forName(commandClassName);
                 Object object = commandClass.getConstructor().newInstance();
                 return (Command) object;
             } catch (Exception e) {
-                System.out.println("Unknown class: " + commandClassName);
-                throw new Exception();
+                throw new UnknownCommandClassException(commandClassName);
             }
         }
     }

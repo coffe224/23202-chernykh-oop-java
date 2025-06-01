@@ -1,11 +1,16 @@
 package calculator.commands;
 
 import calculator.ExecutionContext;
+import calculator.exceptions.CommandException;
+import calculator.exceptions.InvalidArgumentException;
+import calculator.exceptions.InvalidNumberOfArgsException;
 
 public class Push implements Command {
-    public void execute(ExecutionContext executionContext, String[] args) {
-        if (args.length != 1) {
-            System.out.println("Invalid number of arguments");
+    private static final int NUM_OF_ARGS = 1;
+
+    public void execute(ExecutionContext executionContext, String[] args) throws CommandException {
+        if (args.length != NUM_OF_ARGS) {
+            throw new InvalidNumberOfArgsException(this.getClass().getName(), NUM_OF_ARGS, args.length);
         }
 
         String arg = args[0];
@@ -16,7 +21,7 @@ public class Push implements Command {
                 double value = Double.parseDouble(arg);
                 executionContext.push(value);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid argument");
+                throw new InvalidArgumentException(this.getClass().getName(), arg);
             }
         }
     }

@@ -9,26 +9,31 @@ public class Parser {
         this.scanner = scanner;
     }
 
-    public ParsedInputString getNextString() {
+    public ParsedCommand getNextCommand() {
         while (scanner.hasNextLine()) {
-            String input = scanner.nextLine();
-            if (input.charAt(0) != '#') {
-                return createParsedInputString(input);
+            String inputString = scanner.nextLine();
+            String[] tokens = inputString.trim().split("\\s+", 2);
+            if (tokens.length == 0) {
+                continue;
             }
+            if (tokens.length == 1 && tokens[0].isEmpty()) {
+                continue;
+            }
+            if (tokens[0].charAt(0) == '#') {
+                continue;
+            }
+            return createParsedInputString(tokens);
         }
         return null;
     }
 
-    private ParsedInputString createParsedInputString(String inputString) {
-        String[] tokens = inputString.split(" ", 2);
+    private ParsedCommand createParsedInputString(String[] inputTokens) {
+        ParsedCommand parsedCommand = new ParsedCommand();
+        parsedCommand.setCommandName(inputTokens[0]);
 
-        ParsedInputString parsedInput = new ParsedInputString();
-        if (tokens.length > 0) {
-            parsedInput.setCommandName(tokens[0]);
+        if (inputTokens.length > 1) {
+            parsedCommand.setArguments(inputTokens[1].split("\\s+"));
         }
-        if (tokens.length > 1) {
-            parsedInput.setArguments(tokens[1].split(" "));
-        }
-        return parsedInput;
+        return parsedCommand;
     }
 }

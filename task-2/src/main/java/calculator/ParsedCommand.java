@@ -1,10 +1,10 @@
 package calculator;
 
-public class ParsedInputString {
+public class ParsedCommand {
     private String commandName;
     private String[] arguments;
 
-    public ParsedInputString() {
+    public ParsedCommand() {
         this.commandName = "";
         this.arguments = new String[0];
     }
