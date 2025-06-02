@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 public class InputScanner {
     private static final Logger logger = LoggerFactory.getLogger(InputScanner.class);
 
-    public String scanNumber(int length) {
+    public String scanNumber(int length) throws BadLengthException, NotANumberException, DuplicateDigitException {
         Scanner scanner = new Scanner(System.in);
         logger.info("Enter a number:");
         String string = scanner.nextLine();

@@ -1,7 +1,5 @@
 package exceptions;
 
-import java.util.InputMismatchException;
-
-public class NotANumberException extends InputMismatchException {
+public class NotANumberException extends InputScannerException {
     public NotANumberException() {}
 }
