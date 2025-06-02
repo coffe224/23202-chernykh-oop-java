@@ -2,7 +2,6 @@ package calculator;
 
 import calculator.commands.Command;
 import calculator.exceptions.CalculatorException;
-import calculator.exceptions.PropertiesFileException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +41,7 @@ public class Calculator {
             throw e;
         }
         this.executionContext = new ExecutionContext();
+        logger.debug("Calculator initialized");
     }
 
     public void start() {
@@ -50,8 +50,10 @@ public class Calculator {
             if (parsedCommand == null) {
                 break;
             }
+            logger.debug("Input: {} {}", parsedCommand.getCommandName(), parsedCommand.getArguments());
             try {
                 Command command = commandFactory.createCommand(parsedCommand.getCommandName());
+                logger.debug("Command class: {}", command.getClass().getSimpleName());
                 command.execute(executionContext, parsedCommand.getArguments());
             } catch (CalculatorException e) {
                 logger.error(e.getMessage());
