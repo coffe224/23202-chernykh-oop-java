@@ -126,6 +126,10 @@ public class Factory {
         return totalCars;
     }
 
+    public int getTotalSoldCars() {
+        return Dealer.getTotalSoldCount();
+    }
+
 }
 
 

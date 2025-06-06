@@ -16,6 +16,7 @@ public class SwingInterface {
     private final JLabel bodyStorageLabel = createValueLabel();
     private final JLabel engineStorageLabel = createValueLabel();
     private final JLabel accessoryStorageLabel = createValueLabel();
+    private final JLabel soldLabel = createValueLabel();
     private JSlider bodyCreationSlider;
     private JSlider engineCreationSlider;
     private JSlider accessoryCreationSlider;
@@ -141,6 +142,7 @@ public class SwingInterface {
         JPanel productionPanel = createStatSubPanel("Production");
         productionPanel.add(createStatRow("Total Cars Produced:", totalLabel));
         productionPanel.add(createStatRow("Cars in Storage:", storedLabel));
+        productionPanel.add(createStatRow("Total Sold Cars:", soldLabel));
 
         // Right column - Component stats
         JPanel componentPanel = createStatSubPanel("Components");
@@ -186,6 +188,7 @@ public class SwingInterface {
     public void update(int totalNum) {
         SwingUtilities.invokeLater(() -> {
             totalLabel.setText(String.valueOf(totalNum));
+            soldLabel.setText(String.valueOf(factory.getTotalSoldCars()));
             storedLabel.setText(String.valueOf(factory.getCarStorage().getCount()));
             bodyStorageLabel.setText(String.valueOf(factory.getBodyStorage().getCount()));
             engineStorageLabel.setText(String.valueOf(factory.getEngineStorage().getCount()));
