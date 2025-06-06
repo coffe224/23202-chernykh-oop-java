@@ -1,13 +1,13 @@
-package factory.car;
+package factory;
 
-import factory.car.carparts.Accessory;
-import factory.car.carparts.Body;
-import factory.car.carparts.Engine;
+import factory.carparts.Accessory;
+import factory.carparts.Body;
+import factory.carparts.Engine;
+
+import java.util.UUID;
 
 public class Car {
-    private static int count = 1;
-
-    private final long id;
+    private final UUID id;
 
     private final Engine engine;
     private final Accessory accessory;
@@ -18,23 +18,22 @@ public class Car {
         this.accessory = accessory;
         this.body = body;
 
-        this.id = count;
-        count++;
+        this.id = UUID.randomUUID();;
     }
 
-    public long getId() {
-        return this.id;
+    public String getId() {
+        return id.toString();
     }
 
-    public long getEngineId() {
+    public String getEngineId() {
         return this.engine.getId();
     }
 
-    public long getAccessoryId() {
+    public String getAccessoryId() {
         return this.accessory.getId();
     }
 
-    public long getCarcassId() {
+    public String getBodyId() {
         return this.body.getId();
     }
 }

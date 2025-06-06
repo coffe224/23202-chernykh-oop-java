@@ -1,5 +1,5 @@
-package factory.car.carparts;
+package factory.carparts;
 
 public interface CarPart {
-    long getId();
+    String getId();
 }

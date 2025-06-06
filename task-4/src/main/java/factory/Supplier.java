@@ -1,4 +1,4 @@
-package factory.car;
+package factory;
 
 public class Supplier<T> implements Runnable {
     private final Class<T> itemClass;

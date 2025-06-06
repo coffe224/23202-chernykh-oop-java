@@ -1,4 +1,4 @@
-package factory.car;
+package factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public class Dealer implements Runnable {
     private void buy() throws InterruptedException {
         Car soldCar = storage.get();
         if (isLog) {
-            logger.info("Car Sold: {} : {} : {} : {}", soldCar.getId(), soldCar.getAccessoryId(), soldCar.getCarcassId(), soldCar.getEngineId());
+            logger.info("Car Sold: {} : {} : {} : {}", soldCar.getId(), soldCar.getAccessoryId(), soldCar.getBodyId(), soldCar.getEngineId());
         }
     }
 }
